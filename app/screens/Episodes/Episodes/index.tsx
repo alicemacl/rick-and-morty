@@ -12,10 +12,12 @@ function Episodes({ navigation, }: NativeStackScreenProps<RootTabParamList, 'Epi
       <Stack.Screen
         name="EpisodeOverview"
         component={EpisodeOverview}
+        options={{ title: 'Episode overview' }}
       />
       <Stack.Screen
         name="EpisodeDetails"
         component={EpisodeDetails}
+        options={{ title: 'Episode details' }}
       />
     </Stack.Navigator>
   )

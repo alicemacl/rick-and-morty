@@ -1,20 +1,17 @@
-import {
-  createNativeStackNavigator,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { Button, Image, StyleSheet, Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import colors from '../config/colors'
-import useApi from '../hooks/useApi'
-import { RootTabParamList } from '../navigation/TabNavigation'
-import FetchApi from '../networking/FetchApi'
+import useApi from '../../hooks/useApi'
+import { RootTabParamList } from '../../navigation/TabNavigation'
+import FetchApi from '../../networking/FetchApi'
 import {
   AllCharacters,
   AllEpisodes,
   AllLocations,
-} from '../networking/interface'
-import DetailsCard from '../components/DetailsCard'
+} from '../../networking/interface'
+import DetailsCard from '../../components/DetailsCard'
+import { styles } from './style'
 
 export default function Explore({
   navigation,
@@ -77,22 +74,3 @@ export default function Explore({
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.darkBlue,
-    flex: 1,
-  },
-  logo: {
-    alignSelf: 'center',
-    width: 218,
-    height: 92,
-  },
-  subTitle: {
-    fontSize: 20,
-    color: colors.green,
-    fontWeight: '600',
-    textAlign: 'center',
-    margin: 20,
-  },
-})

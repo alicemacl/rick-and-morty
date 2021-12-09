@@ -1,12 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import Axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, FlatList, StyleSheet, Text} from 'react-native'
+import React, { useEffect } from 'react'
+import { SafeAreaView, View, Text} from 'react-native'
 import useApi from '../../../hooks/useApi'
 import FetchApi from '../../../networking/FetchApi'
-import { Episode, Character, AllCharacters, MultipleCharacters } from '../../../networking/interface'
+import { Episode, MultipleCharacters } from '../../../networking/interface'
 import { RootStackParamList } from '../interface'
-import TextLine from '../../../components/TextLine'
+import { styles } from './style'
 
 const EpisodeDetails = ({
   route, navigation
@@ -58,9 +57,14 @@ const EpisodeDetails = ({
   console.log(mapNumbers)
 
   return (
-    <SafeAreaView>
-      <Text>Episode Details</Text>
-      <Text>{itemId}</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.card}>
+        <Text style={styles.title}>{episodeData?.name}</Text>
+        <Text style={styles.subTitle}>Episode</Text>
+        <Text style={styles.text}>{episodeData?.episode}</Text>
+        <Text style={styles.subTitle}>Aired</Text>
+        <Text style={styles.text}>{episodeData?.created}</Text>
+      </View>
     </SafeAreaView>
   )
 }

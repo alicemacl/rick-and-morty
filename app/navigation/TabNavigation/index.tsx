@@ -6,6 +6,7 @@ import Explore from '../../screens/Explore'
 import Episodes from '../../screens/Episodes/Episodes'
 import Characters from '../../screens/Characters/Characters'
 import Locations from '../../screens/Locations/Locations'
+import colors from '../../config/colors'
 
 export type RootTabParamList = {
   Explore: undefined
@@ -17,7 +18,7 @@ export type RootTabParamList = {
 const TabNavigation = () => {
   const Tab = createBottomTabNavigator<RootTabParamList>()
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions= {{ tabBarInactiveTintColor: colors.darkBlue}}>
       <Tab.Screen
         name="Explore"
         component={Explore}
