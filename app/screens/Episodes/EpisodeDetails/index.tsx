@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { SafeAreaView, View, Text} from 'react-native'
+import { SafeAreaView, View, Text } from 'react-native'
+import ErrorHandler from '../../../components/ErrorHandler'
 import useApi from '../../../hooks/useApi'
 import FetchApi from '../../../networking/FetchApi'
 import { Episode, MultipleCharacters } from '../../../networking/interface'
@@ -8,7 +9,8 @@ import { RootStackParamList } from '../interface'
 import { styles } from './style'
 
 const EpisodeDetails = ({
-  route, navigation
+  route,
+  navigation,
 }: NativeStackScreenProps<RootStackParamList, 'EpisodeDetails'>) => {
   const { itemId } = route.params
 
@@ -19,7 +21,6 @@ const EpisodeDetails = ({
   }, [itemId])
 
   const episodeData = getEpisodeApi.data
-
 
   /* 
   
@@ -40,13 +41,19 @@ const EpisodeDetails = ({
   const newCharacterIds: any = []
 
   for (let i = 0; i < charactersInEpisode?.length; i++) {
-    const characterIds = parseInt(charactersInEpisode[i].substring('https://rickandmortyapi.com/api/character/'.length))
+    const characterIds = parseInt(
+      charactersInEpisode[i].substring(
+        'https://rickandmortyapi.com/api/character/'.length
+      )
+    )
     newCharacterIds.push(characterIds)
   }
 
   const mapNumbers = newCharacterIds.toString()
 
-  const getCharacterApi = useApi<MultipleCharacters>(FetchApi.getCharactersInEpisode)
+  const getCharacterApi = useApi<MultipleCharacters>(
+    FetchApi.getCharactersInEpisode
+  )
 
   useEffect(() => {
     getCharacterApi.request(mapNumbers)
@@ -58,13 +65,22 @@ const EpisodeDetails = ({
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.card}>
-        <Text style={styles.title}>{episodeData?.name}</Text>
-        <Text style={styles.subTitle}>Episode</Text>
-        <Text style={styles.text}>{episodeData?.episode}</Text>
-        <Text style={styles.subTitle}>Aired</Text>
-        <Text style={styles.text}>{episodeData?.created}</Text>
-      </View>
+      {getCharacterApi.error && (
+        <ErrorHandler
+          errorMsg="Noe gikk galt ved henting av detaljene til episoden"
+          buttonText="Prøv igjen"
+          onPress={() => getEpisodeApi.request([itemId])}
+        />
+      )}
+      {!getEpisodeApi.error && (
+        <View style={styles.card}>
+          <Text style={styles.title}>{episodeData?.name}</Text>
+          <Text style={styles.subTitle}>Episode</Text>
+          <Text style={styles.text}>{episodeData?.episode}</Text>
+          <Text style={styles.subTitle}>Aired</Text>
+          <Text style={styles.text}>{episodeData?.created}</Text>
+        </View>
+      )}
     </SafeAreaView>
   )
 }

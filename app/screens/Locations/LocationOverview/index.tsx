@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect, useState } from 'react'
 import { FlatList, SafeAreaView, View } from 'react-native'
+import ErrorHandler from '../../../components/ErrorHandler'
 import ListItem from '../../../components/ListItem'
 import ListItemSeperator from '../../../components/ListItemSeperator'
 import NavigationButtons from '../../../components/NavigationButtons'
@@ -25,29 +26,40 @@ const LocationsOverview = ({
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.list}>
-        <FlatList
-          data={locationDetails}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <ListItem
-              item={item}
-              onPress={() => {
-                navigation.navigate('LocationDetails', {
-                  itemId: item.id,
-                })
-              }}
-            />
-          )}
-          ItemSeparatorComponent={ListItemSeperator}
+      {getLocationsDetails.error && (
+        <ErrorHandler
+          errorMsg="Noe gikk galt ved henting av lokasjonene"
+          buttonText="Prøv igjen"
+          onPress={() => getLocationsDetails.request(page)}
         />
-      </View>
-      <NavigationButtons
-        next={() => setPage(page + 1)}
-        previous={() => setPage(page - 1)}
-        disabledNext={page == getLocationsDetails.data?.info.pages}
-        disabledPrev={page == 1}
-      />
+      )}
+      {!getLocationsDetails.error && (
+        <>
+          <View style={styles.list}>
+            <FlatList
+              data={locationDetails}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <ListItem
+                  item={item}
+                  onPress={() => {
+                    navigation.navigate('LocationDetails', {
+                      itemId: item.id,
+                    })
+                  }}
+                />
+              )}
+              ItemSeparatorComponent={ListItemSeperator}
+            />
+          </View>
+          <NavigationButtons
+            next={() => setPage(page + 1)}
+            previous={() => setPage(page - 1)}
+            disabledNext={page == getLocationsDetails.data?.info.pages}
+            disabledPrev={page == 1}
+          />
+        </>
+      )}
     </SafeAreaView>
   )
 }

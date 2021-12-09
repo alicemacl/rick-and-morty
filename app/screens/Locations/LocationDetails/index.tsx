@@ -6,6 +6,7 @@ import FetchApi from '../../../networking/FetchApi'
 import { Location } from '../../../networking/interface'
 import { RootStackParamList } from '../interface'
 import { styles } from '../../Episodes/EpisodeDetails/style'
+import ErrorHandler from '../../../components/ErrorHandler'
 
 const LocationDetails = ({
   route,
@@ -25,13 +26,22 @@ const LocationDetails = ({
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.card}>
-        <Text style={styles.title}>{locationData?.name}</Text>
-        <Text style={styles.subTitle}>Type of location</Text>
-        <Text style={styles.text}>{locationData?.type}</Text>
-        <Text style={styles.subTitle}>Created</Text>
-        <Text style={styles.text}>{locationData?.created}</Text>
-      </View>
+      {getLocationDetails.error && (
+        <ErrorHandler
+          errorMsg="Noe gikk galt ved henting av detaljene til lokasjonen"
+          buttonText="Prøv igjen"
+          onPress={() => getLocationDetails.request([itemId])}
+        />
+      )}
+      {!getLocationDetails.error && (
+        <View style={styles.card}>
+          <Text style={styles.title}>{locationData?.name}</Text>
+          <Text style={styles.subTitle}>Type of location</Text>
+          <Text style={styles.text}>{locationData?.type}</Text>
+          <Text style={styles.subTitle}>Created</Text>
+          <Text style={styles.text}>{locationData?.created}</Text>
+        </View>
+      )}
     </SafeAreaView>
   )
 }

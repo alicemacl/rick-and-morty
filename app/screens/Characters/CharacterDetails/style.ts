@@ -23,9 +23,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 300,
     zIndex: 99,
-    borderStyle: 'solid',
-    borderWidth: 10,
-    borderColor: colors.green,
     marginTop: 20,
   },
   infoBox: {

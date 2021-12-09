@@ -19,7 +19,6 @@ function Characters({ navigation, }: NativeStackScreenProps<RootTabParamList, 'C
         component={CharacterDetails}
         options={{ title: 'Characer profile' }}
       />
-      {/* <TabNavigation /> */}
     </Stack.Navigator>
   )
 }
