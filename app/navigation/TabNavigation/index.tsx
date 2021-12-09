@@ -18,7 +18,15 @@ export type RootTabParamList = {
 const TabNavigation = () => {
   const Tab = createBottomTabNavigator<RootTabParamList>()
   return (
-    <Tab.Navigator screenOptions= {{ tabBarInactiveTintColor: colors.darkBlue}}>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: colors.blue,
+        tabBarInactiveTintColor: colors.white,
+        tabBarInactiveBackgroundColor: colors.darkBlue,
+        tabBarActiveBackgroundColor: colors.darkBlue,
+        tabBarStyle: { borderTopColor: colors.blue }
+      }}
+    >
       <Tab.Screen
         name="Explore"
         component={Explore}
@@ -59,7 +67,6 @@ const TabNavigation = () => {
           headerShown: false,
         }}
       />
-      
     </Tab.Navigator>
   )
 }
