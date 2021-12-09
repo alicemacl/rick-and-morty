@@ -1,6 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { SafeAreaView, View, Text, Image } from 'react-native'
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Image,
+  ActivityIndicator,
+} from 'react-native'
 import useApi from '../../../hooks/useApi'
 import FetchApi from '../../../networking/FetchApi'
 import { Character } from '../../../networking/interface'
@@ -54,6 +60,13 @@ const CharacterDetails = ({
 
   return (
     <SafeAreaView style={styles.container}>
+      {getCharacterDetails.loading && (
+        <ActivityIndicator
+          animating={getCharacterDetails.loading}
+          size="large"
+        />
+      )}
+
       {getCharacterDetails.error && (
         <ErrorHandler
           errorMsg="Noe gikk galt ved henting av detaljene til denne karakteren"

@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect, useState } from 'react'
-import { FlatList, SafeAreaView } from 'react-native'
+import { ActivityIndicator, FlatList, SafeAreaView } from 'react-native'
 import ListItem from '../../../components/ListItem'
 import ListItemSeperator from '../../../components/ListItemSeperator'
 import useApi from '../../../hooks/useApi'
@@ -27,6 +27,10 @@ const CharactersOverview = ({
 
   return (
     <SafeAreaView style={styles.container}>
+      {getCharactersDetails.loading && (
+        <ActivityIndicator animating={getCharactersDetails.loading} size="large" />
+      )}
+      
       {getCharactersDetails.error && (
         <ErrorHandler
           errorMsg="Noe gikk galt ved henting av karakterer"

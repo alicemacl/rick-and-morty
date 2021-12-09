@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { SafeAreaView, View, Text } from 'react-native'
+import { SafeAreaView, View, Text, ActivityIndicator } from 'react-native'
 import ErrorHandler from '../../../components/ErrorHandler'
 import useApi from '../../../hooks/useApi'
 import FetchApi from '../../../networking/FetchApi'
@@ -65,6 +65,10 @@ const EpisodeDetails = ({
 
   return (
     <SafeAreaView style={styles.container}>
+      {getCharacterApi.loading && (
+        <ActivityIndicator animating={getEpisodeApi.loading} size="large" />
+      )}
+
       {getCharacterApi.error && (
         <ErrorHandler
           errorMsg="Noe gikk galt ved henting av detaljene til episoden"

@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { SafeAreaView, Text, View } from 'react-native'
+import { ActivityIndicator, SafeAreaView, Text, View } from 'react-native'
 import useApi from '../../../hooks/useApi'
 import FetchApi from '../../../networking/FetchApi'
 import { Location } from '../../../networking/interface'
@@ -26,6 +26,13 @@ const LocationDetails = ({
 
   return (
     <SafeAreaView style={styles.container}>
+      {getLocationDetails.loading && (
+        <ActivityIndicator
+          animating={getLocationDetails.loading}
+          size="large"
+        />
+      )}
+
       {getLocationDetails.error && (
         <ErrorHandler
           errorMsg="Noe gikk galt ved henting av detaljene til lokasjonen"

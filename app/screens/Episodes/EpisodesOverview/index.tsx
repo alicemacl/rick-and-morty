@@ -1,6 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect, useState } from 'react'
-import { FlatList, SafeAreaView, View, Text } from 'react-native'
+import {
+  FlatList,
+  SafeAreaView,
+  View,
+  ActivityIndicator,
+} from 'react-native'
 import ListItem from '../../../components/ListItem'
 import ListItemSeperator from '../../../components/ListItemSeperator'
 import useApi from '../../../hooks/useApi'
@@ -26,8 +31,16 @@ const EpisodeOverview = ({
 
   return (
     <SafeAreaView style={styles.container}>
+      {getEpisodeApi.loading && (
+        <ActivityIndicator animating={getEpisodeApi.loading} size="large" />
+      )}
+
       {getEpisodeApi.error && (
-        <ErrorHandler errorMsg="Noe gikk galt ved henting av episoder" buttonText="Prøv igjen" onPress={() => getEpisodeApi.request(page)} />
+        <ErrorHandler
+          errorMsg="Noe gikk galt ved henting av episoder"
+          buttonText="Prøv igjen"
+          onPress={() => getEpisodeApi.request(page)}
+        />
       )}
       {!getEpisodeApi.error && (
         <>

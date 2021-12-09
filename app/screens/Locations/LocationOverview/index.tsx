@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect, useState } from 'react'
-import { FlatList, SafeAreaView, View } from 'react-native'
+import { ActivityIndicator, FlatList, SafeAreaView, View } from 'react-native'
 import ErrorHandler from '../../../components/ErrorHandler'
 import ListItem from '../../../components/ListItem'
 import ListItemSeperator from '../../../components/ListItemSeperator'
@@ -26,6 +26,13 @@ const LocationsOverview = ({
 
   return (
     <SafeAreaView style={styles.container}>
+      {getLocationsDetails.loading && (
+        <ActivityIndicator
+          animating={getLocationsDetails.loading}
+          size="large"
+        />
+      )}
+
       {getLocationsDetails.error && (
         <ErrorHandler
           errorMsg="Noe gikk galt ved henting av lokasjonene"
