@@ -20,7 +20,7 @@ const LocationDetails = ({
     getLocationDetails.request([itemId])
   }, [itemId])
 
-  console.log(itemId)
+  //console.log(itemId)
 
   const locationData = getLocationDetails.data
 

@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { Image, ScrollView, Text, View } from 'react-native'
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import useApi from '../../hooks/useApi'
 import { RootTabParamList } from '../../navigation/TabNavigation'
@@ -12,6 +12,7 @@ import {
 } from '../../networking/interface'
 import DetailsCard from '../../components/DetailsCard'
 import { styles } from './style'
+import ErrorHandler from '../../components/ErrorHandler'
 
 export default function Explore({
   navigation,
@@ -25,8 +26,6 @@ export default function Explore({
     getLocationsApi.request()
     getEpisodesApi.request()
   }, [])
-
-  console.log(getLocationsApi.data?.info.count)
 
   const exploreContent = [
     {
@@ -52,6 +51,12 @@ export default function Explore({
     },
   ]
 
+  const handleErrorRequest = () => {
+    getCharacterApi.request()
+    getLocationsApi.request()
+    getEpisodesApi.request()
+  }
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -60,18 +65,34 @@ export default function Explore({
           Your daily source to keep up with the different dimensions of the Rick
           and Morty universe.
         </Text>
-        <ScrollView>
-          {exploreContent.map((item, index) => (
-            <DetailsCard
-              key={index}
-              title={item.title}
-              text={item.text}
-              buttonTitle={item.buttonTitle}
-              screenLink={item.screenLink}
-              imageUri={item.imageUri}
+        {getCharacterApi.loading && getLocationsApi.loading && getEpisodesApi.loading && (
+          <ActivityIndicator animating={getCharacterApi.loading && getLocationsApi.loading && getEpisodesApi.loading} size="large" />
+        )}
+        {getCharacterApi.error &&
+          getEpisodesApi.error &&
+          (getLocationsApi.error && (
+            <ErrorHandler
+              errorMsg="Noe gikk galt ved henting av detaljene til episoden"
+              buttonText="Prøv igjen"
+              onPress={handleErrorRequest}
             />
           ))}
-        </ScrollView>
+        {!getCharacterApi.error &&
+          !getEpisodesApi.error &&
+          (!getLocationsApi.error && (
+            <ScrollView>
+              {exploreContent.map((item, index) => (
+                <DetailsCard
+                  key={index}
+                  title={item.title}
+                  text={item.text}
+                  buttonTitle={item.buttonTitle}
+                  screenLink={item.screenLink}
+                  imageUri={item.imageUri}
+                />
+              ))}
+            </ScrollView>
+          ))}
       </SafeAreaView>
     </View>
   )

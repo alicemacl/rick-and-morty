@@ -59,9 +59,9 @@ const EpisodeDetails = ({
     getCharacterApi.request(mapNumbers)
   }, [])
 
-  console.log(getCharacterApi.data)
+  //console.log(getCharacterApi.data)
 
-  console.log(mapNumbers)
+  //console.log(mapNumbers)
 
   return (
     <SafeAreaView style={styles.container}>
