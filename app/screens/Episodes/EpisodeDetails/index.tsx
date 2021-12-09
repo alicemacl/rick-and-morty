@@ -6,6 +6,7 @@ import useApi from '../../../hooks/useApi'
 import FetchApi from '../../../networking/FetchApi'
 import { Episode, Character, AllCharacters, MultipleCharacters } from '../../../networking/interface'
 import { RootStackParamList } from '../interface'
+import TextLine from '../../../components/TextLine'
 
 const EpisodeDetails = ({
   route, navigation

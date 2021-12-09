@@ -1,11 +1,12 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack'
 import EpisodeDetails from '../EpisodeDetails'
 import EpisodeOverview from '../EpisodesOverview'
+import { RootTabParamList } from '../../../navigation/TabNavigation'
 
 const Stack = createNativeStackNavigator()
 
-function Episodes() {
+function Episodes({ navigation, }: NativeStackScreenProps<RootTabParamList, 'Episodes'>) {
   return (
     <Stack.Navigator>
       <Stack.Screen

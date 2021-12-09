@@ -1,11 +1,12 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack'
 import LocationsOverview from '../LocationOverview'
 import LocationDetails from '../LocationDetails'
+import { RootTabParamList } from '../../../navigation/TabNavigation'
 
 const Stack = createNativeStackNavigator()
 
-function Locations() {
+function Locations({ navigation, }: NativeStackScreenProps<RootTabParamList, 'Locations'>) {
   return (
     <Stack.Navigator>
       <Stack.Screen

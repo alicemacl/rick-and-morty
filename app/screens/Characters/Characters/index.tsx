@@ -1,11 +1,12 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack'
 import CharactersOverview from '../CharactersOverview'
 import CharacterDetails from '../CharacterDetails'
+import { RootTabParamList } from '../../../navigation/TabNavigation'
 
 const Stack = createNativeStackNavigator()
 
-function Characters() {
+function Characters({ navigation, }: NativeStackScreenProps<RootTabParamList, 'Characters'>) {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -18,6 +19,7 @@ function Characters() {
         component={CharacterDetails}
         options={{ title: 'Characer profile' }}
       />
+      {/* <TabNavigation /> */}
     </Stack.Navigator>
   )
 }

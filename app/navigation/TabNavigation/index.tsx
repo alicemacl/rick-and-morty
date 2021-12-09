@@ -7,9 +7,15 @@ import Episodes from '../../screens/Episodes/Episodes'
 import Characters from '../../screens/Characters/Characters'
 import Locations from '../../screens/Locations/Locations'
 
-const Tab = createBottomTabNavigator()
+export type RootTabParamList = {
+  Explore: undefined
+  Characters: undefined
+  Locations: undefined
+  Episodes: undefined
+}
 
 const TabNavigation = () => {
+  const Tab = createBottomTabNavigator<RootTabParamList>()
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -19,6 +25,17 @@ const TabNavigation = () => {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="compass" size={size} color={color} />
           ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Characters"
+        component={Characters}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="child" size={size} color={color} />
+          ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -41,16 +58,7 @@ const TabNavigation = () => {
           headerShown: false,
         }}
       />
-      <Tab.Screen
-        name="Characters"
-        component={Characters}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome5 name="child" size={size} color={color} />
-          ),
-          headerShown: false,
-        }}
-      />
+      
     </Tab.Navigator>
   )
 }
